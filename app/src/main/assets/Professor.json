@@ -1,0 +1,31 @@
+{
+  "profBulletIn": {
+    "notice": "교수님 바빠요"
+  },
+  "profDoNotDisturb": false,
+  "profInfo": {
+    "profEmail": "honky@uc.ac.kr",
+    "profMajor": "컴퓨터IT학부",
+    "profName": "홍길동",
+    "profPosition": "학과장",
+    "profTelNum": "052) 230-0123"
+  },
+  "profLectureTimeTable": {
+    "lecture1": {
+      "day": "Mon",
+      "endTime": 12,
+      "lectureClass": "A",
+      "lectureName": "빅데이터기초",
+      "lectureRoom": "1-409",
+      "startTime": 10
+    },
+    "lecture2": {
+      "day": "Wed",
+      "endTime": 12,
+      "lectureClass": "A",
+      "lectureName": "데이터베이스",
+      "lectureRoom": "1-436",
+      "startTime": 10
+    }
+  }
+}

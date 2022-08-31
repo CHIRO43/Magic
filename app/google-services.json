@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "339482313643",
+    "project_id": "magic-mirror-3164c",
+    "storage_bucket": "magic-mirror-3164c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339482313643:android:25fe39420cf47e0f7f48ee",
+        "android_client_info": {
+          "package_name": "com.kh.magic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339482313643-7armisd2crpad992ov4lolepcc63r95b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDomDnBFCDCAZcUuaU1yefJtAAS46ct_zY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339482313643-7armisd2crpad992ov4lolepcc63r95b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
