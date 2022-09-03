@@ -30,7 +30,6 @@
         android:paddingHorizontal="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/dayText"
-        tools:listitem="@layout/schedule_item"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

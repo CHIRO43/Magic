@@ -1,8 +1,6 @@
 package com.kh.magic.Professor
 
-import Lecture1
 import ProfLectureTimeTable
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +11,8 @@ import com.kh.magic.R
 
 
 // 여기서 items의 형식은 본인이 서버에서 데이터를 GET해서 오는 것이라면 reponsedata를, 직접 만든 데이터클래스를 사용하고 싶으면 dataclass의 이름을 넣으면 된다.
-class ScheduleAdapter(private val context: Context,val items : MutableList<ProfLectureTimeTable>) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
-
-//    val adapter: DayAdapter? = null
-    private var DayList = items
-    private val mContext: Context = context
+class ScheduleAdapter(val items: MutableList<ProfLectureTimeTable>) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+    private val viewPool = RecyclerView.RecycledViewPool()
     // 뷰홀더를 만들고 뷰를 초기화하는 함수이다. 아직 바인딩이 안되었기 때문에 뷰에 내용이 직접적으로 담기는 과정은 아니다.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.day_item, parent, false)
@@ -27,27 +22,28 @@ class ScheduleAdapter(private val context: Context,val items : MutableList<ProfL
 
     // 여기서 뷰와 데이터의 결합이 이루어진다. 만약 이미지 url을 가져오면 이 함수에서 url을 뷰에 넣어서 사진을 출력할 수 있다.(단, 이미지는 Glide와 같은 외부 라이브러리 사용을 추천)
     override fun onBindViewHolder(holder: ScheduleAdapter.ViewHolder, position: Int) {
-        //holder.day_Text.text = items[position].toString()
 
         val day: ProfLectureTimeTable = items[position]
         holder.setItem(day)
 
-        holder.schedule_RV.adapter = DayAdapter(context,
-            DayList[position].lecture1
-        )
-        holder.schedule_RV.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.HORIZONTAL,
-            false
-        )
-        holder.schedule_RV.setHasFixedSize(true)
+        with(holder) {
+            day_Text.text = items[position].days
 
-        holder.day_Text.text = DayList.get(position).day
+            //자식 레이아웃 매니저 설정
+            val layoutManager = LinearLayoutManager(
+                schedule_RV.context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            layoutManager.initialPrefetchItemCount = day.lecture1.size
 
-//        val daysArryList: ArrayList<String> = ArrayList()
-//        daysArryList.clear()
-//        holder.schedule_RV.adapter = adapter
-//        adapter?.notifyDataSetChanged()
+            //자식 어댑터 설정
+            val dayAdapter = DayAdapter(day.lecture1)
+            schedule_RV.layoutManager = layoutManager
+            schedule_RV.adapter = dayAdapter
+            schedule_RV.setRecycledViewPool(viewPool)
+
+        }
     }
 
     override fun getItemCount(): Int {
@@ -60,7 +56,7 @@ class ScheduleAdapter(private val context: Context,val items : MutableList<ProfL
             var schedule_RV = itemView.findViewById<RecyclerView>(R.id.scheduleRV)!!
 
         fun setItem(day: ProfLectureTimeTable){
-            day_Text.text = day.day
+            day_Text.text = day.days
         }
 
     }

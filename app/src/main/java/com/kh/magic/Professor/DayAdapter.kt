@@ -9,10 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kh.magic.R
 
-class DayAdapter(val context: Context, val items: MutableList<Lecture1>) : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
-
-    private val mContext: Context = context
-    private var mLectureList = items
+class DayAdapter(val items: MutableList<Lecture1>) : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.schedule_item, parent, false)
@@ -22,7 +19,6 @@ class DayAdapter(val context: Context, val items: MutableList<Lecture1>) : Recyc
 
     override fun onBindViewHolder(holder: DayAdapter.ViewHolder, position: Int) {
         val item =  items[position]
-        val day: Lecture1 = items[position]
 
         with(holder){
             timeStartText.text = item.startTime

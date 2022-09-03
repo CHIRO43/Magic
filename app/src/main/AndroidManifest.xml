@@ -12,8 +12,6 @@
         <activity android:name=".Professor.ProfessorActivity"></activity>
         <activity android:name=".Professor.NoticeActivity" />
         <activity android:name=".Professor.ScheduleActivity" />
-        <activity android:name=".BoardWriteActivity" />
-        <activity android:name=".BoardListActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

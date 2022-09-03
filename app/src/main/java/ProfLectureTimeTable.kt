@@ -1,9 +1,24 @@
 
 import com.google.gson.annotations.SerializedName
 
-data class ProfLectureTimeTable(
-    @SerializedName("day")
-    val day: String="",
+class ProfLectureTimeTable(
+    @SerializedName("days")
+    var days: String,
     @SerializedName("lecture1")
-    val lecture1: MutableList<Lecture1> = mutableListOf(Lecture1())
+    var lecture1: MutableList<Lecture1>
+)
+
+class Lecture1(
+    @SerializedName("day")
+    var day: String,
+    @SerializedName("startTime")
+    var startTime: String,
+    @SerializedName("endTime")
+    var endTime: String,
+    @SerializedName("lectureClass")
+    var lectureClass: String,
+    @SerializedName("lectureName")
+    var lectureName: String,
+    @SerializedName("lectureRoom")
+    var lectureRoom: String
 )

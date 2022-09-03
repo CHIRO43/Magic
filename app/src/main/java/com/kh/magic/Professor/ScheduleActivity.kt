@@ -15,24 +15,47 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.kh.magic.FBRef
 import com.kh.magic.R
+import java.util.ArrayList
 
 
 class ScheduleActivity : AppCompatActivity() {
 
-    lateinit var SDAdapter : ScheduleAdapter
+//    lateinit var SDAdapter : ScheduleAdapter
     private val schedule = mutableListOf<ProfLectureTimeTable>()
+
+    // 상위아이템 큰박스 아이템을 10개 만듭니다.
+    private fun buildItemList(): MutableList<ProfLectureTimeTable> {
+        val itemList: MutableList<ProfLectureTimeTable> = ArrayList()
+
+        itemList.add(ProfLectureTimeTable("월", buildSubItemList()))
+        itemList.add(ProfLectureTimeTable("화", buildSubItemList()))
+        itemList.add(ProfLectureTimeTable("수", buildSubItemList()))
+        itemList.add(ProfLectureTimeTable("목", buildSubItemList()))
+        itemList.add(ProfLectureTimeTable("금", buildSubItemList()))
+
+        return itemList
+    }
+    // 그안에 존재하는 하위 아이템 박스(3개씩 보이는 아이템들)
+    private fun buildSubItemList(): MutableList<Lecture1> {
+        val subItemList: MutableList<Lecture1> = ArrayList()
+        for (i in 0..2) {
+            val subItem = Lecture1("Sub Item $i", "Description $i","2","a","asmr","a")
+            subItemList.add(subItem)
+        }
+        return subItemList
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
 
-        SDAdapter = ScheduleAdapter(this,schedule)
-        val rv = findViewById<RecyclerView>(R.id.dayRV)
-        rv.adapter = SDAdapter
-        rv.layoutManager = LinearLayoutManager(this)
 
-//        schedule.add(ProfLectureTimeTable("d",Lecture1("d",1,2,"a","s","m")))
-//                tv_result!!.setText(parent.getItemAtPosition(position).toString())
+        val rv = findViewById<RecyclerView>(R.id.dayRV)
+        val layoutManager = LinearLayoutManager(this@ScheduleActivity)
+        val itemAdapter = ScheduleAdapter(buildItemList())
+
+        rv.adapter = itemAdapter
+        rv.layoutManager = layoutManager
 
 
         val addBtn = findViewById<Button>(R.id.scheduleAddBtn)
@@ -49,7 +72,7 @@ class ScheduleActivity : AppCompatActivity() {
             }
 
             alertDialog.findViewById<Button>(R.id.saveBtn)?.setOnClickListener {
-            /*    val daySpinner = alertDialog.findViewById<Spinner>(R.id.day_spinner)
+                /*val daySpinner = alertDialog.findViewById<Spinner>(R.id.day_spinner)
                 val startSpinner = alertDialog.findViewById<Spinner>(R.id.timeStart_spinner)
                 val endSpinner = alertDialog.findViewById<Spinner>(R.id.timeEnd_spinner)
                 val text1 : String = daySpinner?.selectedItem.toString()
@@ -61,18 +84,17 @@ class ScheduleActivity : AppCompatActivity() {
                 val room = alertDialog.findViewById<EditText>(R.id.roomEdit)?.text.toString()
                 val partClass = alertDialog.findViewById<EditText>(R.id.partClassEdit)?.text.toString()
 
-                val model = ProfLectureTimeTable("월",Lecture1(text1,text2,text3,partClass,subject,room))
+                val model = ProfLectureTimeTable("d",Lecture1(text1,text2,text3,partClass,subject,room))
                 val key = FBRef.LectureRef.push().key.toString()
 
                 FBRef.LectureRef.child(key).setValue(model)
                 SDAdapter.notifyDataSetChanged()
-               alertDialog.dismiss() */
-            }
+               alertDialog.dismiss()
+            */}
         }
 
-        getData()
-
-        SDAdapter.notifyDataSetChanged()
+        //getData()
+//        SDAdapter.notifyDataSetChanged()
     }
 
     private fun getData() {
@@ -84,7 +106,7 @@ class ScheduleActivity : AppCompatActivity() {
                     schedule.add(dataModel.getValue(ProfLectureTimeTable::class.java)!!)
 
                 }
-                SDAdapter.notifyDataSetChanged()
+//                SDAdapter.notifyDataSetChanged()
 
             }
 
