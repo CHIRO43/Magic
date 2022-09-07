@@ -23,7 +23,7 @@ class ScheduleActivity : AppCompatActivity() {
     private val schedule : MutableList<ProfLectureTimeTable> = ArrayList()
     private val subItemList: MutableList<Lecture1> = ArrayList()
 
-    // 그안에 존재하는 하위 아이템 박스(3개씩 보이는 아이템들)
+
     private fun buildSubItemList(): MutableList<Lecture1> {
         return subItemList
     }
@@ -75,7 +75,7 @@ class ScheduleActivity : AppCompatActivity() {
                 val endSpinner = alertDialog.findViewById<Spinner>(R.id.timeEnd_spinner)
                 val text1 : String = daySpinner?.selectedItem.toString()
                 val text2 : String = startSpinner?.selectedItem.toString()
-                val text3 : String = endSpinner?.selectedItem.toString()//파베 setvalue에 넣어보기
+                val text3 : String = endSpinner?.selectedItem.toString()
 
                 val partClass = alertDialog.findViewById<EditText>(R.id.partClassEdit)?.text.toString()
                 val subject = alertDialog.findViewById<EditText>(R.id.subjectEdit)?.text.toString()
@@ -87,14 +87,34 @@ class ScheduleActivity : AppCompatActivity() {
                 val model = ProfLectureTimeTable(text1,buildSubItemList())
                 val key = FBRef.LectureRef.push().key.toString()
 
-                FBRef.LectureRef.child(key).setValue(model)
-                itemAdapter.notifyDataSetChanged()
+                when (text1) {
+                    "월요일" -> {
+                        FBRef.LectureRef.child("Mon").setValue(model)
+                        itemAdapter.notifyDataSetChanged()
+                    }
+                    "화요일" -> {
+                        FBRef.LectureRef.child("Tue").setValue(model)
+                        itemAdapter.notifyDataSetChanged()
+                    }
+                    "수요일" -> {
+                        FBRef.LectureRef.child("Wed").setValue(model)
+                        itemAdapter.notifyDataSetChanged()
+                    }
+                    "목요일" -> {
+                        FBRef.LectureRef.child("Thu").setValue(model)
+                        itemAdapter.notifyDataSetChanged()
+                    }
+                    "금요일" -> {
+                        FBRef.LectureRef.child("Fri").setValue(model)
+                        itemAdapter.notifyDataSetChanged()
+                    }
+                }
+
                alertDialog.dismiss()
             }
         }
 
         //getData()
-//        SDAdapter.notifyDataSetChanged()
     }
 
     private fun getData() {
