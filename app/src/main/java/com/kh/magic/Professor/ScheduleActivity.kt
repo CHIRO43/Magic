@@ -31,11 +31,6 @@ class ScheduleActivity : AppCompatActivity() {
     // 상위아이템 큰박스 아이템을 5개 만듭니다.
     private fun buildItemList(): MutableList<ProfLectureTimeTable> {
 
-        fun setItem(day: ProfLectureTimeTable){
-            if(schedule.equals(day.days.equals("월"))) {
-
-            }
-        }
         schedule.add(ProfLectureTimeTable("월", buildSubItemList()))
         schedule.add(ProfLectureTimeTable("화", buildSubItemList()))
         schedule.add(ProfLectureTimeTable("수", buildSubItemList()))
@@ -85,7 +80,6 @@ class ScheduleActivity : AppCompatActivity() {
 
                 subItemList.add(subItem)
                 val model = ProfLectureTimeTable(text1,buildSubItemList())
-                val key = FBRef.LectureRef.push().key.toString()
 
                 when (text1) {
                     "월요일" -> {
@@ -126,7 +120,6 @@ class ScheduleActivity : AppCompatActivity() {
                     schedule.add(dataModel.getValue(ProfLectureTimeTable::class.java)!!)
 
                 }
-//                SDAdapter.notifyDataSetChanged()
 
             }
 
