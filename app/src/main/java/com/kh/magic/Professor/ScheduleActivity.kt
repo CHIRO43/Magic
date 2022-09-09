@@ -17,39 +17,22 @@ import com.kh.magic.FBRef
 import com.kh.magic.R
 import java.util.ArrayList
 
-
 class ScheduleActivity : AppCompatActivity() {
 
+    lateinit var SDAdapter : ScheduleAdapter
     private val schedule : MutableList<ProfLectureTimeTable> = ArrayList()
     private val subItemList: MutableList<Lecture1> = ArrayList()
 
-
-    private fun buildSubItemList(): MutableList<Lecture1> {
-        return subItemList
-    }
-
-    // 상위아이템 큰박스 아이템을 5개 만듭니다.
-    private fun buildItemList(): MutableList<ProfLectureTimeTable> {
-
-        schedule.add(ProfLectureTimeTable("월", buildSubItemList()))
-        schedule.add(ProfLectureTimeTable("화", buildSubItemList()))
-        schedule.add(ProfLectureTimeTable("수", buildSubItemList()))
-        schedule.add(ProfLectureTimeTable("목", buildSubItemList()))
-        schedule.add(ProfLectureTimeTable("금", buildSubItemList()))
-
-        return schedule
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
 
-
         val rv = findViewById<RecyclerView>(R.id.dayRV)
         val layoutManager = LinearLayoutManager(this@ScheduleActivity)
-        val itemAdapter = ScheduleAdapter(buildItemList())
-
-        rv.adapter = itemAdapter
         rv.layoutManager = layoutManager
+
+        SDAdapter = ScheduleAdapter(schedule)
+        rv.adapter = SDAdapter
 
         val addBtn = findViewById<Button>(R.id.scheduleAddBtn)
         addBtn.setOnClickListener{
@@ -77,38 +60,32 @@ class ScheduleActivity : AppCompatActivity() {
                 val room = alertDialog.findViewById<EditText>(R.id.roomEdit)?.text.toString()
 
                 val subItem= Lecture1(text1,text2,text3,partClass,subject,room)
+                val model = ProfLectureTimeTable(text1,subItemList)
 
-                subItemList.add(subItem)
-                val model = ProfLectureTimeTable(text1,buildSubItemList())
-
+                subItemList.add(subItem)//Lecture1 리스트에 추가
                 when (text1) {
                     "월요일" -> {
-                        FBRef.LectureRef.child("Mon").setValue(model)
-                        itemAdapter.notifyDataSetChanged()
+                        FBRef.LectureRef.child("A").setValue(model)
                     }
                     "화요일" -> {
-                        FBRef.LectureRef.child("Tue").setValue(model)
-                        itemAdapter.notifyDataSetChanged()
+                        FBRef.LectureRef.child("B").setValue(model)
                     }
                     "수요일" -> {
-                        FBRef.LectureRef.child("Wed").setValue(model)
-                        itemAdapter.notifyDataSetChanged()
+                        FBRef.LectureRef.child("C").setValue(model)
                     }
                     "목요일" -> {
-                        FBRef.LectureRef.child("Thu").setValue(model)
-                        itemAdapter.notifyDataSetChanged()
+                        FBRef.LectureRef.child("D").setValue(model)
                     }
                     "금요일" -> {
-                        FBRef.LectureRef.child("Fri").setValue(model)
-                        itemAdapter.notifyDataSetChanged()
+                        FBRef.LectureRef.child("E").setValue(model)
                     }
                 }
 
-               alertDialog.dismiss()
+                alertDialog.dismiss()
             }
         }
 
-        //getData()
+        getData()
     }
 
     private fun getData() {
@@ -118,9 +95,8 @@ class ScheduleActivity : AppCompatActivity() {
                 // Get Post object and use the values to update the UI
                 for (dataModel in dataSnapshot.children) {
                     schedule.add(dataModel.getValue(ProfLectureTimeTable::class.java)!!)
-
                 }
-
+                SDAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

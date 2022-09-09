@@ -20,7 +20,7 @@ class ScheduleAdapter(val items: MutableList<ProfLectureTimeTable>) : RecyclerVi
         return ViewHolder(view).apply {  }
     }
 
-    // 여기서 뷰와 데이터의 결합이 이루어진다. 만약 이미지 url을 가져오면 이 함수에서 url을 뷰에 넣어서 사진을 출력할 수 있다.(단, 이미지는 Glide와 같은 외부 라이브러리 사용을 추천)
+    // 여기서 뷰와 데이터의 결합이 이루어진다.
     override fun onBindViewHolder(holder: ScheduleAdapter.ViewHolder, position: Int) {
 
         val day: ProfLectureTimeTable = items[position]

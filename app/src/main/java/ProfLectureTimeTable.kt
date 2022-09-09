@@ -1,24 +1,25 @@
 
 import com.google.gson.annotations.SerializedName
+import java.util.ArrayList
 
 data class ProfLectureTimeTable(
     @SerializedName("days")
-    var days: String,
+    var days: String="",
     @SerializedName("lecture1")
-    var lecture1: MutableList<Lecture1>
+    var lecture1: MutableList<Lecture1> = ArrayList()
 )
 
 data class Lecture1(
     @SerializedName("day")
-    var day: String,
+    var day: String="",
     @SerializedName("startTime")
-    var startTime: String,
+    var startTime: String="",
     @SerializedName("endTime")
-    var endTime: String,
+    var endTime: String="",
     @SerializedName("lectureClass")
-    var lectureClass: String,
+    var lectureClass: String="",
     @SerializedName("lectureName")
-    var lectureName: String,
+    var lectureName: String="",
     @SerializedName("lectureRoom")
-    var lectureRoom: String
+    var lectureRoom: String=""
 )

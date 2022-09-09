@@ -72,8 +72,8 @@ class NoticeActivity : AppCompatActivity() {
                 val model = ProfBulletIn(noticeWrite)
                 val key = FBRef.noticeRef.push().key.toString()
 
-                FBRef.noticeRef.child(key).
-                setValue(model)
+                FBRef.noticeRef.child(key).setValue(model)
+
                 NTAdapter.notifyDataSetChanged()
                 mAlertDialog.dismiss()
             }
