@@ -24,10 +24,9 @@ class ScheduleAdapter(val items: MutableList<ProfLectureTimeTable>) : RecyclerVi
     override fun onBindViewHolder(holder: ScheduleAdapter.ViewHolder, position: Int) {
 
         val day: ProfLectureTimeTable = items[position]
-        holder.setItem(day)
 
         with(holder) {
-            day_Text.text = items[position].days
+            day_Text.text = day.days
 
             //자식 레이아웃 매니저 설정
             val layoutManager = LinearLayoutManager(
@@ -52,12 +51,8 @@ class ScheduleAdapter(val items: MutableList<ProfLectureTimeTable>) : RecyclerVi
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
-            var day_Text = itemView.findViewById<TextView>(R.id.dayText)!!
+            val day_Text = itemView.findViewById<TextView>(R.id.dayText)!!
             var schedule_RV = itemView.findViewById<RecyclerView>(R.id.scheduleRV)!!
-
-        fun setItem(day: ProfLectureTimeTable){
-            day_Text.text = day.days
-        }
 
     }
 }

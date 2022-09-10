@@ -20,8 +20,8 @@ import java.util.ArrayList
 class ScheduleActivity : AppCompatActivity() {
 
     lateinit var SDAdapter : ScheduleAdapter
-    private val schedule : MutableList<ProfLectureTimeTable> = ArrayList()
-    private val subItemList: MutableList<Lecture1> = ArrayList()
+    private val schedule : MutableList<ProfLectureTimeTable> = mutableListOf()
+    private val subItemList: MutableList<Lecture1> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,7 @@ class ScheduleActivity : AppCompatActivity() {
 
         SDAdapter = ScheduleAdapter(schedule)
         rv.adapter = SDAdapter
+
 
         val addBtn = findViewById<Button>(R.id.scheduleAddBtn)
         addBtn.setOnClickListener{
@@ -80,7 +81,6 @@ class ScheduleActivity : AppCompatActivity() {
                         FBRef.LectureRef.child("E").setValue(model)
                     }
                 }
-
                 alertDialog.dismiss()
             }
         }
