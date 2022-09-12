@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.getValue
 import com.kh.magic.FBRef
 import com.kh.magic.R
-import java.util.ArrayList
+import kotlin.time.Duration.Companion.days
 
-class ScheduleActivity : AppCompatActivity() {
+ class ScheduleActivity : AppCompatActivity() {
 
     lateinit var SDAdapter : ScheduleAdapter
     private val schedule : MutableList<ProfLectureTimeTable> = mutableListOf()
@@ -61,24 +62,34 @@ class ScheduleActivity : AppCompatActivity() {
                 val room = alertDialog.findViewById<EditText>(R.id.roomEdit)?.text.toString()
 
                 val subItem= Lecture1(text1,text2,text3,partClass,subject,room)
-                val model = ProfLectureTimeTable(text1,subItemList)
-
                 subItemList.add(subItem)//Lecture1 리스트에 추가
-                when (text1) {
+
+                val monList = subItemList.filter { it.day == "월요일" }
+                val tueList = subItemList.filter { it.day == "화요일" }
+                val wedList = subItemList.filter { it.day == "수요일" }
+                val thuList = subItemList.filter { it.day == "목요일" }
+                val friList = subItemList.filter { it.day == "금요일" }
+                val model1 = ProfLectureTimeTable(text1, monList as MutableList<Lecture1>)
+                val model2 = ProfLectureTimeTable(text1, tueList as MutableList<Lecture1>)
+                val model3 = ProfLectureTimeTable(text1, wedList as MutableList<Lecture1>)
+                val model4 = ProfLectureTimeTable(text1, thuList as MutableList<Lecture1>)
+                val model5 = ProfLectureTimeTable(text1, friList as MutableList<Lecture1>)
+
+                when (subItem.day) {
                     "월요일" -> {
-                        FBRef.LectureRef.child("A").setValue(model)
+                        FBRef.LectureRef.child("A").setValue(model1)
                     }
                     "화요일" -> {
-                        FBRef.LectureRef.child("B").setValue(model)
+                        FBRef.LectureRef.child("B").setValue(model2)
                     }
                     "수요일" -> {
-                        FBRef.LectureRef.child("C").setValue(model)
+                        FBRef.LectureRef.child("C").setValue(model3)
                     }
                     "목요일" -> {
-                        FBRef.LectureRef.child("D").setValue(model)
+                        FBRef.LectureRef.child("D").setValue(model4)
                     }
                     "금요일" -> {
-                        FBRef.LectureRef.child("E").setValue(model)
+                        FBRef.LectureRef.child("E").setValue(model5)
                     }
                 }
                 alertDialog.dismiss()
