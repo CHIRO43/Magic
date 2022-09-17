@@ -5,6 +5,7 @@ import ProfLectureTimeTable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,7 @@ import kotlin.time.Duration.Companion.days
 
     lateinit var SDAdapter : ScheduleAdapter
     private val schedule : MutableList<ProfLectureTimeTable> = mutableListOf()
-    private val subItemList: MutableList<Lecture1> = mutableListOf()
+    private var subItemList: MutableList<Lecture1> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,7 @@ import kotlin.time.Duration.Companion.days
         SDAdapter = ScheduleAdapter(schedule)
         rv.adapter = SDAdapter
 
+        getData()
 
         val addBtn = findViewById<Button>(R.id.scheduleAddBtn)
         addBtn.setOnClickListener{
@@ -63,7 +65,7 @@ import kotlin.time.Duration.Companion.days
 
                 val subItem= Lecture1(text1,text2,text3,partClass,subject,room)
                 subItemList.add(subItem)//Lecture1 리스트에 추가
-
+//                Log.d("플러스", subItemList.toString())
                 val monList = subItemList.filter { it.day == "월요일" }
                 val tueList = subItemList.filter { it.day == "화요일" }
                 val wedList = subItemList.filter { it.day == "수요일" }
@@ -96,17 +98,29 @@ import kotlin.time.Duration.Companion.days
             }
         }
 
-        getData()
+
     }
 
     private fun getData() {
         FBRef.LectureRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val sdsa :  MutableList<Lecture1> = mutableListOf()
                 schedule.clear()
                 // Get Post object and use the values to update the UI
                 for (dataModel in dataSnapshot.children) {
                     schedule.add(dataModel.getValue(ProfLectureTimeTable::class.java)!!)
+                    val value1 = dataModel.getValue(ProfLectureTimeTable::class.java)
+                    subItemList=value1!!.lecture1
+
+
+                    for ( i in 0 until subItemList.count()){
+                        sdsa.add(subItemList[i])
+                    }
+                    Log.d("섭리스트", sdsa.toString())
+//                    Log.d("메인", schedule.toString())
                 }
+                subItemList = sdsa
+                Log.d("sub리스트", subItemList.toString())
                 SDAdapter.notifyDataSetChanged()
             }
 
