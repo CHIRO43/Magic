@@ -66,7 +66,6 @@ class NoticeActivity : AppCompatActivity() {
 
             val saveBtn = mAlertDialog.findViewById<Button>(R.id.saveBtn)
             saveBtn?.setOnClickListener{
-
                 val noticeWrite = mAlertDialog.findViewById<EditText>(R.id.noticeWrite)?.text.toString()
 
                 val model = ProfBulletIn(noticeWrite)
@@ -86,6 +85,7 @@ class NoticeActivity : AppCompatActivity() {
         FBRef.noticeRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 notice.clear()
+                keyList.clear()
                 // Get Post object and use the values to update the UI
                 for (dataModel in dataSnapshot.children) {
                     notice.add(dataModel.getValue(ProfBulletIn::class.java)!!)

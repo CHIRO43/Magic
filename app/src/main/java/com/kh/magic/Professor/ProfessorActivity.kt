@@ -1,7 +1,6 @@
 package com.kh.magic.Professor
 
 import ProfInfo
-import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,8 +17,27 @@ class ProfessorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_professor)
 
         val email = findViewById<TextView>(R.id.profEmail)
+        val major = findViewById<TextView>(R.id.profMajor)
+        val name = findViewById<TextView>(R.id.profName)
+        val position = findViewById<TextView>(R.id.profPosition)
+        val telNum = findViewById<TextView>(R.id.profTelNum)
 
-//        val model = ProfInfo("@com","컴퓨터","홍길동","학과장","010")
+        val model = ProfInfo(email.toString(),major.toString(),name.toString(),position.toString(),telNum.toString())
+        FBRef.InfoRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val info = dataSnapshot.getValue(model::class.java)
+                email.text = info?.profEmail
+                major.text= info?.profMajor
+                name.text =info?.profName
+                position.text = info?.profPosition
+                telNum.text= info?.profTelNum
 
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("MainActivity", "loadPost:onCancelled", databaseError.toException())
+            }
+        })
     }
 }

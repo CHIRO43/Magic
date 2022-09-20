@@ -19,7 +19,6 @@
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent">
-
         <RelativeLayout
             android:id="@+id/firstLin"
             android:layout_width="match_parent"

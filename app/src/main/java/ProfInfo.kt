@@ -3,9 +3,9 @@ import com.google.gson.annotations.SerializedName
 
 data class ProfInfo(
     @SerializedName("profEmail")
-    var profEmail: String ,
+    var profEmail: String="",
     @SerializedName("profMajor")
-    val profMajor: String= "",
+    var profMajor: String= "",
     @SerializedName("profName")
     val profName: String= "",
     @SerializedName("profPosition")

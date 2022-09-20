@@ -8,7 +8,7 @@ class FBRef {
         private val database = Firebase.database
 
         val noticeRef = database.getReference("profBulletIn")
-        val InfoRef = database.getReference("proInfo")
-        val LectureRef = database.getReference("proLectureTimeTable")
+        val InfoRef = database.getReference("profInfo")
+        val LectureRef = database.getReference("profLectureTimeTable")
     }
 }

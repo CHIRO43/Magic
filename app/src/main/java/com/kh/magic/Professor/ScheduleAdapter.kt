@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kh.magic.R
 
 
-// 여기서 items의 형식은 본인이 서버에서 데이터를 GET해서 오는 것이라면 reponsedata를, 직접 만든 데이터클래스를 사용하고 싶으면 dataclass의 이름을 넣으면 된다.
 class ScheduleAdapter(val items: MutableList<ProfLectureTimeTable>) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
     private val viewPool = RecyclerView.RecycledViewPool()
+
     // 뷰홀더를 만들고 뷰를 초기화하는 함수이다. 아직 바인딩이 안되었기 때문에 뷰에 내용이 직접적으로 담기는 과정은 아니다.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.day_item, parent, false)

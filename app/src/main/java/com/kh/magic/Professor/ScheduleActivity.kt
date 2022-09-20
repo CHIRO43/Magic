@@ -5,7 +5,6 @@ import ProfLectureTimeTable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import com.kh.magic.FBRef
 import com.kh.magic.R
-import kotlin.time.Duration.Companion.days
 
  class ScheduleActivity : AppCompatActivity() {
 
@@ -65,7 +62,7 @@ import kotlin.time.Duration.Companion.days
 
                 val subItem= Lecture1(text1,text2,text3,partClass,subject,room)
                 subItemList.add(subItem)//Lecture1 리스트에 추가
-//                Log.d("플러스", subItemList.toString())
+
                 val monList = subItemList.filter { it.day == "월요일" }
                 val tueList = subItemList.filter { it.day == "화요일" }
                 val wedList = subItemList.filter { it.day == "수요일" }
@@ -104,23 +101,19 @@ import kotlin.time.Duration.Companion.days
     private fun getData() {
         FBRef.LectureRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val sdsa :  MutableList<Lecture1> = mutableListOf()
+                val returnSubList :  MutableList<Lecture1> = mutableListOf()
                 schedule.clear()
-                // Get Post object and use the values to update the UI
+
                 for (dataModel in dataSnapshot.children) {
                     schedule.add(dataModel.getValue(ProfLectureTimeTable::class.java)!!)
                     val value1 = dataModel.getValue(ProfLectureTimeTable::class.java)
                     subItemList=value1!!.lecture1
 
-
                     for ( i in 0 until subItemList.count()){
-                        sdsa.add(subItemList[i])
+                        returnSubList.add(subItemList[i])
                     }
-                    Log.d("섭리스트", sdsa.toString())
-//                    Log.d("메인", schedule.toString())
                 }
-                subItemList = sdsa
-                Log.d("sub리스트", subItemList.toString())
+                subItemList = returnSubList
                 SDAdapter.notifyDataSetChanged()
             }
 
