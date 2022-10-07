@@ -12,11 +12,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="시간표"
+        android:text="Timetable"
         android:textColor="@color/black"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +40,7 @@
         android:clipToPadding="false"
         android:paddingHorizontal="8dp"
         android:layout_marginTop="10dp"
+        android:paddingBottom="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scheduleAddBtn" />
 

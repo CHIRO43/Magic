@@ -11,15 +11,15 @@ data class ProfLectureTimeTable(
 
 data class Lecture1(
     @SerializedName("day")
-    var day: String="",
+    var day: String? = null,
     @SerializedName("startTime")
-    var startTime: String="",
+    var startTime: String? = null,
     @SerializedName("endTime")
-    var endTime: String="",
+    var endTime: String?= null,
     @SerializedName("lectureClass")
-    var lectureClass: String="",
+    var lectureClass: String?= null,
     @SerializedName("lectureName")
-    var lectureName: String="",
+    var lectureName: String?= null,
     @SerializedName("lectureRoom")
-    var lectureRoom: String=""
+    var lectureRoom: String? = null
 )

@@ -94,8 +94,6 @@ import com.kh.magic.R
                 alertDialog.dismiss()
             }
         }
-
-
     }
 
     private fun getData() {

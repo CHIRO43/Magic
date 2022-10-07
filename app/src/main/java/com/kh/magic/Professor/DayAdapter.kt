@@ -1,14 +1,11 @@
 package com.kh.magic.Professor
 
 import Lecture1
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.kh.magic.FBRef
@@ -36,11 +33,11 @@ class DayAdapter(val items: MutableList<Lecture1>) : RecyclerView.Adapter<DayAda
             }
         }
         with(holder){
-            timeStartText.text = item.startTime
-            timeEndText.text= item.endTime
-            subjectText.text = item.lectureName
-            roomText.text= item.lectureRoom
-            partClassText.text = item.lectureClass
+            timeStartText.text = item?.startTime
+            timeEndText.text= item?.endTime
+            subjectText.text = item?.lectureName
+            roomText.text= item?.lectureRoom
+            partClassText.text = item?.lectureClass
 
             itemView.setOnClickListener {
                 val mDialogView = LayoutInflater.from(it.context).inflate(R.layout.remove_dialog, null)
@@ -52,20 +49,20 @@ class DayAdapter(val items: MutableList<Lecture1>) : RecyclerView.Adapter<DayAda
                 alertDialog.findViewById<Button>(R.id.okBtn)?.setOnClickListener {
                     when(item.day){
                         "월요일" -> {
-//                            FBRef.LectureRef.child("A").child("lecture1").child(position.toString()).removeValue()
-                            FBRef.LectureRef.child("A").removeValue()
+                            FBRef.LectureRef.child("A").child("lecture1").child(position.toString()).removeValue()
+//                            FBRef.LectureRef.child("A").removeValue()
                         }
                         "화요일" -> {
-                            FBRef.LectureRef.child("B").removeValue()
+                            FBRef.LectureRef.child("B").child("lecture1").child(position.toString()).removeValue()
                         }
                         "수요일" -> {
-                            FBRef.LectureRef.child("C").removeValue()
+                            FBRef.LectureRef.child("C").child("lecture1").child(position.toString()).removeValue()
                         }
                         "목요일" -> {
-                            FBRef.LectureRef.child("D").removeValue()
+                            FBRef.LectureRef.child("D").child("lecture1").child(position.toString()).removeValue()
                         }
                         "금요일" -> {
-                            FBRef.LectureRef.child("E").removeValue()
+                            FBRef.LectureRef.child("E").child("lecture1").child(position.toString()).removeValue()
                         }
                     }
                     alertDialog.dismiss()
