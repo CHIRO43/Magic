@@ -4,9 +4,9 @@ import java.util.ArrayList
 
 data class ProfLectureTimeTable(
     @SerializedName("days")
-    var days: String="",
+    var days: String? ="",
     @SerializedName("lecture1")
-    var lecture1: MutableList<Lecture1> = ArrayList()
+    var lecture1: MutableList<Lecture1> ?= ArrayList()
 )
 
 data class Lecture1(

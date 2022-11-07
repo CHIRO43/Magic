@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.kh.magic.FBRef
 import com.kh.magic.R
+import java.util.*
 
  class ScheduleActivity : AppCompatActivity() {
 
@@ -63,11 +64,11 @@ import com.kh.magic.R
                 val subItem= Lecture1(text1,text2,text3,partClass,subject,room)
                 subItemList.add(subItem)//Lecture1 리스트에 추가
 
-                val monList = subItemList.filter { it.day == "월요일" }
-                val tueList = subItemList.filter { it.day == "화요일" }
-                val wedList = subItemList.filter { it.day == "수요일" }
-                val thuList = subItemList.filter { it.day == "목요일" }
-                val friList = subItemList.filter { it.day == "금요일" }
+                val monList = subItemList.filter { it?.day == "월요일" }
+                val tueList = subItemList.filter { it?.day == "화요일" }
+                val wedList = subItemList.filter { it?.day == "수요일" }
+                val thuList = subItemList.filter { it?.day == "목요일" }
+                val friList = subItemList.filter { it?.day == "금요일" }
                 val model1 = ProfLectureTimeTable(text1, monList as MutableList<Lecture1>)
                 val model2 = ProfLectureTimeTable(text1, tueList as MutableList<Lecture1>)
                 val model3 = ProfLectureTimeTable(text1, wedList as MutableList<Lecture1>)
@@ -103,14 +104,15 @@ import com.kh.magic.R
                 schedule.clear()
 
                 for (dataModel in dataSnapshot.children) {
-                    schedule.add(dataModel.getValue(ProfLectureTimeTable::class.java)!!)
+                    dataModel.getValue(ProfLectureTimeTable::class.java)?.let { schedule.add(it) }
                     val value1 = dataModel.getValue(ProfLectureTimeTable::class.java)
-                    subItemList=value1!!.lecture1
+                    subItemList= value1?.lecture1!!
 
                     for ( i in 0 until subItemList.count()){
                         returnSubList.add(subItemList[i])
                     }
                 }
+
                 subItemList = returnSubList
                 SDAdapter.notifyDataSetChanged()
             }

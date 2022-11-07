@@ -12,7 +12,7 @@ import com.kh.magic.FBRef
 import com.kh.magic.R
 
 
-class DayAdapter(val items: MutableList<Lecture1>) : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
+class DayAdapter(val items: MutableList<Lecture1>?) : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
 
     interface ItemClick {
         fun onItemClick(view: View, position: Int)
@@ -25,7 +25,7 @@ class DayAdapter(val items: MutableList<Lecture1>) : RecyclerView.Adapter<DayAda
     }
 
     override fun onBindViewHolder(holder: DayAdapter.ViewHolder, position: Int) {
-        val item =  items[position]
+        val item = items?.get(position)
 
         if(itemClick != null){
             holder.itemView.setOnClickListener{v ->
@@ -47,7 +47,7 @@ class DayAdapter(val items: MutableList<Lecture1>) : RecyclerView.Adapter<DayAda
                     .setMessage("내용을 삭제하시겠습니까?")
                 val alertDialog = mBuilder.show()
                 alertDialog.findViewById<Button>(R.id.okBtn)?.setOnClickListener {
-                    when(item.day){
+                    when(item?.day){
                         "월요일" -> {
                             FBRef.LectureRef.child("A").child("lecture1").child(position.toString()).removeValue()
 //                            FBRef.LectureRef.child("A").removeValue()
@@ -77,7 +77,7 @@ class DayAdapter(val items: MutableList<Lecture1>) : RecyclerView.Adapter<DayAda
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return items?.size!!
     }
 
     inner class ViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView) {

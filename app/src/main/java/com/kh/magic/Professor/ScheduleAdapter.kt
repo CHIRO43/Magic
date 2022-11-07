@@ -34,10 +34,10 @@ class ScheduleAdapter(val items: MutableList<ProfLectureTimeTable>) : RecyclerVi
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
-            layoutManager.initialPrefetchItemCount = day.lecture1.size
+            layoutManager.initialPrefetchItemCount = day.lecture1!!.size
 
             //자식 어댑터 설정
-            val dayAdapter = DayAdapter(day.lecture1)
+            val dayAdapter = DayAdapter(day.lecture1!!)
             schedule_RV.layoutManager = layoutManager
             schedule_RV.adapter = dayAdapter
             schedule_RV.setRecycledViewPool(viewPool)
