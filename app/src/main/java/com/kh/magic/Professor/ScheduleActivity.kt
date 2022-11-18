@@ -2,6 +2,7 @@
 
 import Lecture1
 import ProfLectureTimeTable
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,14 +16,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.kh.magic.FBRef
 import com.kh.magic.R
-import java.util.*
 
  class ScheduleActivity : AppCompatActivity() {
 
     lateinit var SDAdapter : ScheduleAdapter
-    private val schedule : MutableList<ProfLectureTimeTable> = mutableListOf()
-    private var subItemList: MutableList<Lecture1> = mutableListOf()
+    var schedule : MutableList<ProfLectureTimeTable> = mutableListOf()
+    var subItemList: MutableList<Lecture1> = mutableListOf()
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_schedule)
@@ -75,6 +76,7 @@ import java.util.*
                 val model4 = ProfLectureTimeTable(text1, thuList as MutableList<Lecture1>)
                 val model5 = ProfLectureTimeTable(text1, friList as MutableList<Lecture1>)
 
+
                 when (subItem.day) {
                     "월요일" -> {
                         FBRef.LectureRef.child("A").setValue(model1)
@@ -92,12 +94,13 @@ import java.util.*
                         FBRef.LectureRef.child("E").setValue(model5)
                     }
                 }
+
                 alertDialog.dismiss()
             }
         }
     }
 
-    private fun getData() {
+    fun getData() {
         FBRef.LectureRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val returnSubList :  MutableList<Lecture1> = mutableListOf()
