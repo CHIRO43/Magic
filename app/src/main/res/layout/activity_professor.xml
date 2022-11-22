@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Professor.ProfessorActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Professor Profile"
@@ -51,7 +52,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="\t학부\t\t\t\t\t : "
+        android:text="\t학부\t\t\t\t\t  : "
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"

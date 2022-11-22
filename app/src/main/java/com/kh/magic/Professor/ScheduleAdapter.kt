@@ -77,26 +77,27 @@ class ScheduleAdapter(var items: MutableList<ProfLectureTimeTable>) : RecyclerVi
                         val beforeItem = items //해당 day아이템만 제거한 스케줄
 
                         //요일 스케줄 파베에서 삭제
-                        when(day.lecture1?.get(0)?.day){
-                            "월요일" -> {
-                                FBRef.LectureRef.child("A").removeValue()
+                        if (day.lecture1?.isNotEmpty() == true) {
+                            when (day.lecture1?.get(0)?.day) {
+                                "월요일" -> {
+                                    FBRef.LectureRef.child("A").removeValue()
+                                }
+                                "화요일" -> {
+                                    FBRef.LectureRef.child("B").removeValue()
+                                }
+                                "수요일" -> {
+                                    FBRef.LectureRef.child("C").removeValue()
+                                }
+                                "목요일" -> {
+                                    FBRef.LectureRef.child("D").removeValue()
+                                }
+                                "금요일" -> {
+                                    FBRef.LectureRef.child("E").removeValue()
+                                }
                             }
-                            "화요일" -> {
-                                FBRef.LectureRef.child("B").removeValue()
-                            }
-                            "수요일" -> {
-                                FBRef.LectureRef.child("C").removeValue()
-                            }
-                            "목요일" -> {
-                                FBRef.LectureRef.child("D").removeValue()
-                            }
-                            "금요일" -> {
-                                FBRef.LectureRef.child("E").removeValue()
-                            }
+                            //해당 day아이템만 삭제했기에 그 아이템과 같은 요일, 다른 아이템+다른 요일 아이템을 넘겨줌
+                            items = beforeItem
                         }
-                        //해당 day아이템만 삭제했기에 그 아이템과 같은 요일, 다른 아이템+다른 요일 아이템을 넘겨줌
-                        items=beforeItem
-
                         //다시 파베에 추가
                         val monList = day.lecture1?.filter { it?.day == "월요일" }
                         val tueList = day.lecture1?.filter { it?.day == "화요일" }
