@@ -77,8 +77,7 @@ class ScheduleAdapter(var items: MutableList<ProfLectureTimeTable>) : RecyclerVi
                         val beforeItem = items //해당 day아이템만 제거한 스케줄
 
                         //요일 스케줄 파베에서 삭제
-                        if (day.lecture1?.isNotEmpty() == true) {
-                            when (day.lecture1?.get(0)?.day) {
+                            when (day.days) {
                                 "월요일" -> {
                                     FBRef.LectureRef.child("A").removeValue()
                                 }
@@ -97,7 +96,7 @@ class ScheduleAdapter(var items: MutableList<ProfLectureTimeTable>) : RecyclerVi
                             }
                             //해당 day아이템만 삭제했기에 그 아이템과 같은 요일, 다른 아이템+다른 요일 아이템을 넘겨줌
                             items = beforeItem
-                        }
+
                         //다시 파베에 추가
                         val monList = day.lecture1?.filter { it?.day == "월요일" }
                         val tueList = day.lecture1?.filter { it?.day == "화요일" }
@@ -109,7 +108,7 @@ class ScheduleAdapter(var items: MutableList<ProfLectureTimeTable>) : RecyclerVi
                         val model3 = ProfLectureTimeTable("수요일", wedList as MutableList<Lecture1>)
                         val model4 = ProfLectureTimeTable("목요일", thuList as MutableList<Lecture1>)
                         val model5 = ProfLectureTimeTable("금요일", friList as MutableList<Lecture1>)
-                        when (day.lecture1?.get(0)?.day) {
+                        when (day.days) {
                             "월요일" -> {
                                 FBRef.LectureRef.child("A").setValue(model1)
                             }

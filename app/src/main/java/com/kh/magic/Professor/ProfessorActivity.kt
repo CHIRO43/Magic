@@ -28,7 +28,7 @@ class ProfessorActivity : AppCompatActivity() {
         val position = findViewById<TextView>(R.id.profPosition)
         val telNum = findViewById<TextView>(R.id.profTelNum)
 
-        val profile = findViewById<TextView>(R.id.profile)
+        val profile = findViewById<TextView>(R.id.profileBtn)
         profile.setOnClickListener {
             val mDialogView = LayoutInflater.from(this).inflate(R.layout.profile_dialog, null)
             val mBuilder = AlertDialog.Builder(this)
